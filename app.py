@@ -29,7 +29,7 @@ def update():
     # Clear the display
     epd.Clear()
 
-    fontSize = 22
+    fontSize = 20
     font = ImageFont.truetype("Arial.ttf", fontSize)
 
     lastY = 0
