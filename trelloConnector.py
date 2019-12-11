@@ -1,10 +1,11 @@
+from dotenv import load_dotenv
+load_dotenv()
+
+import os
+
+from trello import TrelloClient
+
 def fetch():
-    from dotenv import load_dotenv
-    load_dotenv()
-
-    import os
-
-    from trello import TrelloClient
 
     # Create the client connection
     client = TrelloClient(
