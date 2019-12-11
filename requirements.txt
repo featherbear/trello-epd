@@ -1,2 +1,4 @@
+py_trello==0.15.0
 Pillow==6.2.1
+python-dotenv==0.10.3
 spidev==3.4
