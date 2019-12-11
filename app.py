@@ -1,5 +1,6 @@
 #!/bin/python3
 
+import textwrap
 from PIL import Image, ImageDraw, ImageFont
 import trelloConnector
 from lib.waveshare_epd import epd7in5bc
@@ -18,51 +19,64 @@ except:
 epd = epd7in5bc.EPD()
 epd.init()
 
+# Switch width and height for vertical orientation
+width = epd.height
+height = epd.width
+
 # Clear the display
 epd.Clear()
 
-font18 = ImageFont.truetype("Arial.ttf", 18)
+fontSize = 18
+font = ImageFont.truetype("Arial.ttf", fontSize)
+
+lastY = 0
 
 
-def generateCard(drawer, trelloCard, index):
+def generateCard(drawer, trelloCard):
+    global lastY, width, height
+
     cardHeight = 50
-    yOffset = index * cardHeight
 
-    width = epd.height
-    height = epd.width
+    padding = (cardHeight-fontSize) // 2
 
-    # Draw top separator for `index >= 1`
-    if yOffset != 0:
-        drawer[0].line([(0, yOffset), (width, yOffset)])
-    
+    offset = padding
+    for line in textwrap.wrap(trelloCard.name, width=40):
+        drawer[0].text((padding, lastY + offset), line, font=font)
+        offset += font.getsize(line)[1]
+
+    lastY += offset + padding
+
     # Draw bottom separator
-    drawer[0].line([(0, yOffset+cardHeight), (width, yOffset+cardHeight)])
-
-    # Draw text
-    drawer[0].text((0, yOffset + (cardHeight-18)//2),
-                   trelloCard.name, font=font18)
-
+    drawer[0].line([(0, lastY), (width, lastY)])
 
 
 # Create image canvases
-canvas_black = Image.new("1", (epd.height, epd.width), 255)
-canvas_colour = Image.new("1", (epd.height, epd.width), 255)
+canvas_black = Image.new("1", (width, height), 255)
+canvas_colour = Image.new("1", (width, height), 255)
 
 drawer_black = ImageDraw.Draw(canvas_black)
 drawer_colour = ImageDraw.Draw(canvas_colour)
 drawer = (drawer_black, drawer_colour)
 
-i = 0
+# Header
+font36 = ImageFont.truetype("Arial.ttf", 36)
+titleDimensionUsage = font36.getsize(trelloConnector.listTitle)
+drawer_black.rectangle([(0, 0), (width, 2 * titleDimensionUsage[1])], fill=0)
+drawer_black.text(
+    ((width - titleDimensionUsage[0]) // 2, titleDimensionUsage[1] // 2),
+    trelloConnector.listTitle,
+    font=font36,
+    fill=255)
+lastY += 2 * titleDimensionUsage[1]
+
 for card in cards:
-    generateCard(drawer, card, i)
-    i += 1
-    # print(f"Card: {card.name}\nDescription: {card.description}\n")
-#     # for label in card.labels:
-#     #   label.color
-#     #   label.name
-#     #   label.id
+    generateCard(drawer, card)
+
+# Knock knock knock knock knock ~
+# Do you want to flip the imageeee
+canvas_black = canvas_black.transpose(Image.ROTATE_180)
+canvas_colour = canvas_colour.transpose(Image.ROTATE_180)
 
 epd.display(epd.getbuffer(canvas_black), epd.getbuffer(canvas_colour))
-
 
 epd.sleep()
