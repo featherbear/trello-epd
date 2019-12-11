@@ -40,7 +40,7 @@ def update():
         cardHeight = 50
 
         padding = fontSize // 3 * 2
-        leftPadding = 18
+        leftPadding = 10
 
         lines = textwrap.wrap(trelloCard.name, width=40)
 
