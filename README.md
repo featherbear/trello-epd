@@ -1,19 +1,19 @@
-Trello List Display for Waveshare 7.5inch Model B & C e-Paper
+Trello EPD
 ---
 
-Model B - Red  
-Model C - Yellow
+Trello List Display built for the Waveshare 7.5inch Model B e-Paper connected to a Raspberry Pi 3B.
 
-Trello e-Paper list display for Raspberry Pi 3B.
+Note: This will also work for the Waveshare 7.5inch Model C  
+_(and technically A with a few changes to the code)_
+
+Read more technical things [here](./MORE.md)
 
 # Installation
 
-## Pre-requisites
-
+**Pre-requisites**  
 Pillow 3.0.0 requires `libjpeg`, so install it with `sudo apt install libjpeg-dev`
 
-## Python packages
-
+**Python packages**  
 `pip3 install -r requirements.txt`
 
 ## Setup
