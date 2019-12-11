@@ -23,4 +23,4 @@ def fetch():
     if targetList is None:
         targetList = targetBoard.add_list(os.getenv("LIST_NAME"))
 
-    yield from targetList.list_cards_iter()
+    return targetList.list_cards_iter()
