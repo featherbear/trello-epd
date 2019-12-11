@@ -26,7 +26,7 @@ height = epd.width
 # Clear the display
 epd.Clear()
 
-fontSize = 18
+fontSize = 24
 font = ImageFont.truetype("Arial.ttf", fontSize)
 
 lastY = 0
@@ -37,23 +37,24 @@ def generateCard(drawer, trelloCard):
 
     cardHeight = 50
 
-    padding = (cardHeight-fontSize) // 2
+    padding = fontSize // 3 * 2 
+    leftPadding = 18
 
     lines = textwrap.wrap(trelloCard.name, width=40)
     
     # Check that there is enough space
-    requiredSpace = 2 * padding
+    requiredYSpace = 2 * padding
     for line in lines:
-        requiredSpace += font.getsize(line)[1]
-    if lastY + requiredSpace > height:
+        requiredYSpace += font.getsize(line)[1]
+    if lastY + requiredYSpace > height:
         raise Exception("Out of vertical space")
     
-    offset = padding
+    yOffset = padding
     for line in lines:
-        drawer[0].text((padding, lastY + offset), line, font=font)
-        offset += font.getsize(line)[1]
+        drawer[0].text((leftPadding, lastY + yOffset), line, font=font)
+        yOffset += font.getsize(line)[1]
 
-    lastY += offset + padding
+    lastY += yOffset + padding
 
     # Draw bottom separator
     drawer[0].line([(0, lastY), (width, lastY)])
@@ -68,13 +69,13 @@ drawer_colour = ImageDraw.Draw(canvas_colour)
 drawer = (drawer_black, drawer_colour)
 
 # Header
-font36 = ImageFont.truetype("Arial.ttf", 36)
-titleDimensionUsage = font36.getsize(trelloConnector.listTitle)
+font48 = ImageFont.truetype("Arial.ttf", 48)
+titleDimensionUsage = font48.getsize(trelloConnector.listTitle)
 drawer_black.rectangle([(0, 0), (width, 2 * titleDimensionUsage[1])], fill=0)
 drawer_black.text(
     ((width - titleDimensionUsage[0]) // 2, titleDimensionUsage[1] // 2),
     trelloConnector.listTitle,
-    font=font36,
+    font=font48,
     fill=255)
 lastY += 2 * titleDimensionUsage[1]
 
