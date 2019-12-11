@@ -39,8 +39,17 @@ def generateCard(drawer, trelloCard):
 
     padding = (cardHeight-fontSize) // 2
 
+    lines = textwrap.wrap(trelloCard.name, width=40)
+    
+    # Check that there is enough space
+    requiredSpace = 2 * padding
+    for line in lines:
+        requiredSpace += font.getsize(line)[1]
+    if lastY + requiredSpace > height:
+        raise Exception("Out of vertical space")
+    
     offset = padding
-    for line in textwrap.wrap(trelloCard.name, width=40):
+    for line in lines:
         drawer[0].text((padding, lastY + offset), line, font=font)
         offset += font.getsize(line)[1]
 
@@ -69,8 +78,11 @@ drawer_black.text(
     fill=255)
 lastY += 2 * titleDimensionUsage[1]
 
-for card in cards:
-    generateCard(drawer, card)
+try:
+    for card in cards:
+        generateCard(drawer, card)
+except Exception:
+    pass
 
 # Knock knock knock knock knock ~
 # Do you want to flip the imageeee
