@@ -8,7 +8,6 @@ from lib.waveshare_epd import epd7in5bc
 import logging
 logging.disable(logging.CRITICAL)
 
-
 def update():
     try:
         cards = trelloConnector.fetch()
@@ -96,8 +95,3 @@ def update():
     epd.display(epd.getbuffer(canvas_black), epd.getbuffer(canvas_colour))
 
     epd.sleep()
-
-
-while True:
-    update()
-    time.sleep(5*60)
