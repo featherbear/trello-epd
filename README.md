@@ -26,7 +26,7 @@ To get the Trello API key and token, visit https://trello.com/app-key.
 [webhookrelay.com](https://webhookrelay.com/) has been implemented, to allow for push events - rather than polled updates.
 
 * Create an account on [webhookrelay.com](https://webhookrelay.com/)
-* Create a bucket in the control panel
+* Create a bucket called `trelloepd` in the control panel
 * Set the `WEBHOOK_KEY` and `WEBHOOK_SECRET` values in `.env`
 * [Create a webhook on Trello](https://developer.atlassian.com/cloud/trello/guides/rest-api/webhooks/#creating-a-webhook)
   * Link this to the List ID (You can modify the `trelloConnector.py` to print out the id)
