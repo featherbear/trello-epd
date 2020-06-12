@@ -103,6 +103,6 @@ def update():
 
     epd.display(epd.getbuffer(canvas_black), epd.getbuffer(canvas_colour))
 
-    epd.sleep()
+    # epd.sleep()
     __lastUpdate = datetime.now()
     __isUpdating = False
