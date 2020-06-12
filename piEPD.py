@@ -7,14 +7,24 @@ import trelloConnector
 from lib.waveshare_epd import epd7in5bc
 import logging
 logging.disable(logging.CRITICAL)
+from datetime import datetime
+
+__lastUpdate = datetime(1,1,1)
+__isUpdating = False
 
 def update():
+    global __isUpdating, __lastUpdate
+    if __isUpdating:
+      return
+    __isUpdating = True
+
     try:
         cards = trelloConnector.fetch()
     except:
         print("Error: Could not fetch Trello list.")
         print("Please check your settings")
         import sys
+        __isUpdating = False
         sys.exit()
 
     # Initialise the e-Paper display
@@ -95,3 +105,5 @@ def update():
     epd.display(epd.getbuffer(canvas_black), epd.getbuffer(canvas_colour))
 
     epd.sleep()
+    __lastUpdate = datetime.now()
+    __isUpdating = False

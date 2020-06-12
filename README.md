@@ -21,9 +21,20 @@ Pillow 3.0.0 requires `libjpeg`, so install it with `sudo apt install libjpeg-de
 Copy `.env.sample` to `.env` and modify the settings.  
 To get the Trello API key and token, visit https://trello.com/app-key.
 
+### Webhook Relay
+
+[webhookrelay.com](https://webhookrelay.com/) has been implemented, to allow for push events - rather than polled updates.
+
+* Create an account on [webhookrelay.com](https://webhookrelay.com/)
+* Create a bucket in the control panel
+* Set the `WEBHOOK_KEY` and `WEBHOOK_SECRET` values in `.env`
+* [Create a webhook on Trello](https://developer.atlassian.com/cloud/trello/guides/rest-api/webhooks/#creating-a-webhook)
+  * Link this to the List ID (You can modify the `trelloConnector.py` to print out the id)
+
 # Running
 
-`python3 app.py`
+* Poll Mode - every 5 minutes - `python3 run.py`
+* Push Mode - Webhook - `python3 runWebhook.py`
 
 Run it in a `screen` / `tmux` session I guess...
 
