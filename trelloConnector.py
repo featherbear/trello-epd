@@ -23,7 +23,7 @@ def fetch():
     if targetList is None:
         targetList = targetBoard.add_list(os.getenv("LIST_NAME"))
 
-    return targetList.list_cards_iter()
+    return targetList.list_cards()
 
 boardTitle = os.getenv("BOARD_NAME")
 listTitle = os.getenv("LIST_NAME")
