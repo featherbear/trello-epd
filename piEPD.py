@@ -34,9 +34,6 @@ def update():
     width = epd.height
     height = epd.width
 
-    # Clear the display
-    epd.Clear()
-
     fontSize = 20
     font = ImageFont.truetype("Arial.ttf", fontSize)
 
@@ -101,6 +98,7 @@ def update():
     canvas_black = canvas_black.transpose(Image.ROTATE_180)
     canvas_colour = canvas_colour.transpose(Image.ROTATE_180)
 
+    # epd.Clear()
     epd.display(epd.getbuffer(canvas_black), epd.getbuffer(canvas_colour))
 
     # epd.sleep()
