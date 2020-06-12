@@ -1,7 +1,6 @@
 import piEPD
 import websocket
 import json
-from datetime import datetime
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -14,7 +13,7 @@ def on_message(ws, message):
   if data["type"] == "status" and data["status"] == "authenticated":
     ws.send(json.dumps(dict(action="subscribe", buckets=["trelloepd"])))
   elif data["type"] == "webhook":
-    if not piEPD.__isUpdating and (datetime.now() - piEPD.__lastUpdate).seconds > 30:
+    if not piEPD.__isUpdating:
       print("Updating")
       piEPD.update()
 
@@ -27,6 +26,6 @@ def on_close(ws):
 def on_open(ws):
   ws.send(json.dumps(dict(action="auth", key=os.getenv("WEBHOOK_KEY"), secret=os.getenv("WEBHOOK_SECRET"))))
 
-piEPD.update()
 ws = websocket.WebSocketApp("wss://my.webhookrelay.com/v1/socket", on_message = on_message, on_error = on_error, on_close = on_close, on_open = on_open)
+piEPD.update()
 ws.run_forever()

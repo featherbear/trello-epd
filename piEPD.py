@@ -23,9 +23,8 @@ def update():
     except:
         print("Error: Could not fetch Trello list.")
         print("Please check your settings")
-        import sys
         __isUpdating = False
-        sys.exit()
+        return
 
     # Initialise the e-Paper display
     epd = epd7in5bc.EPD()
