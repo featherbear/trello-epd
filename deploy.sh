@@ -8,7 +8,7 @@ git clone https://github.com/featherbear/trello-epd
 
 pushd trello-epd
 pip3 install -r requirements.txt
-cronString="@reboot python3 `pwd`/runWebhook.py"
+cronString="@reboot `which python3` `pwd`/runWebhook.py"
 cp .env.sample .env
 popd
 
