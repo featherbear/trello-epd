@@ -12,7 +12,7 @@ cronString="@reboot python3 `pwd`/runWebhook.py"
 cp .env.sample .env
 popd
 
-crontab -l > /dev/null
+crontab -l 2> /dev/null
 ret=$?
 if [ $ret -ne 0 ]; then
         echo "$cronString" | crontab -
