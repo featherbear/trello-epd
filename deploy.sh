@@ -1,7 +1,8 @@
 #!/bin/bash
 
-[ "$UID" -eq 0 ] || exec sudo "$0" "$@"
+# [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
 
+sudo apt update
 sudo apt install libjpeg-dev git python3 python3-pip -y
 git clone https://github.com/featherbear/trello-epd
 
