@@ -1,11 +1,12 @@
+import os
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+
 import piEPD
 import websocket
 import json
 
 from dotenv import load_dotenv
 load_dotenv()
-
-import os
 
 def on_message(ws, message):
   data = json.loads(message)
