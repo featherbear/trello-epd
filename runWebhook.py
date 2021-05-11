@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import os
-os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 def on_message(ws, message):
   data = json.loads(message)
