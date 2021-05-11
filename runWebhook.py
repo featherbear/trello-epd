@@ -1,10 +1,10 @@
-import piEPD
 import websocket
 import json
 
 from dotenv import load_dotenv
 load_dotenv()
 
+import piEPD
 import os
 
 def on_message(ws, message):
