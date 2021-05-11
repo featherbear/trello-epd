@@ -21,6 +21,8 @@ Pillow 3.0.0 requires `libjpeg`, so install it with `sudo apt install libjpeg-de
 Copy `.env.sample` to `.env` and modify the settings.  
 To get the Trello API key and token, visit https://trello.com/app-key.
 
+> If you are using a Raspberry Pi, enable SPI.
+
 ### Webhook Relay
 
 [webhookrelay.com](https://webhookrelay.com/) has been implemented, to allow for push events - rather than polled updates.
@@ -44,7 +46,7 @@ Run it in a `screen` / `tmux` session I guess...
 
 MIT License
 
-Copyright 2019 Andrew Wong.
+Copyright 2019-2021 Andrew Wong.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
 
