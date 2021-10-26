@@ -21,4 +21,4 @@ else
         (crontab -l ; echo "$cronString" ) | sort - | uniq - | crontab -
 fi
 
-echo "Now edit the .env file"
+echo "Now enable SPI (raspi-config) and edit the .env file"
